@@ -1,0 +1,34 @@
+{
+  "name": "hippaforalkus",
+  "version": "1.0.0",
+  "description": "Content management system",
+  "main": "index.js",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "build:buildah": "buildah bud --tag=$npm_package_name .",
+    "build:publish": "docker save $npm_package_name | ssh -C kelvin.nu 'docker load'",
+    "build:docker": "docker build --tag $npm_package_name .",
+    "prep": "npm install && husky && chmod ug+x .husky/*",
+    "publish": "npm run build:buildah && npm run build:publish",
+    "test": "npm test --workspaces"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusberg/hippaforalkus.git"
+  },
+  "author": "Markus Berg",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/markusberg/hippaforalkus/issues"
+  },
+  "homepage": "https://github.com/markusberg/hippaforalkus#readme",
+  "dependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "prettier": "^3.4.2"
+  }
+}

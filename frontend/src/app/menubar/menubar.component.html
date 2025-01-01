@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/" (click)="collapse()"
+      >hippaforalkus</a
+    >
+    <button
+      class="navbar-toggler hidden-sm-up"
+      type="button"
+      (click)="collapseToggle()"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+      [ngbCollapse]="isCollapsed()"
+    >
+      <ul class="navbar-nav me-auto"></ul>
+      <ul class="navbar-nav">
+        <app-theme-selector />
+      </ul>
+    </div>
+  </div>
+</nav>
