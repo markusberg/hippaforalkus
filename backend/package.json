@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:prep && npm run build:tsc",
+    "build:prep": "mkdir -p dist",
+    "build:tsc": "tsc -p ./tsconfig.prod.json",
+    "debug": "nodemon -e ts -w ./src --exec 'npm run build && node --enable-source-maps --inspect ./dist/index.js'",
+    "test": "echo FIXME: vitest run --coverage",
+    "test:watch": "vitest watch",
+    "test:watch:coverage": "vitest watch --coverage"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "@markusberg/key-value-parser": "^0.3.0",
+    "hono": "^4.6.15"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@vitest/coverage-v8": "^2.1.8",
+    "nodemon": "^3.1.9",
+    "typescript": "~5.6.2",
+    "vitest": "^2.1.8"
+  }
+}
