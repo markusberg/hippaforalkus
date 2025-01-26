@@ -1,0 +1,14 @@
+services:
+  mongodb:
+    image: mongo:7.0.16
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=markus
+      - MONGO_INITDB_ROOT_PASSWORD=pwdPassword123
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db:Z
+      - ./mongobackup:/mongobackup
+    # restart: always
+
+volumes: mongodb_data_container

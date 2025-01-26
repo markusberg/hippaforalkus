@@ -8,3 +8,6 @@ frontend/.angular
 frontend/dist
 backend/dist
 backend/coverage
+
+/mongo
+/mongobackup
