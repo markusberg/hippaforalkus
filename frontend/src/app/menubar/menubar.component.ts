@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
 import { NgbCollapse, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component'
 
@@ -6,6 +6,7 @@ import { ThemeSelectorComponent } from '../theme-selector/theme-selector.compone
   selector: 'app-menubar',
   imports: [NgbCollapse, NgbDropdownModule, ThemeSelectorComponent],
   templateUrl: './menubar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenubarComponent {
   isCollapsed = signal<boolean>(true)

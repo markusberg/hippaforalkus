@@ -6,6 +6,8 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "types": ["node"],
+    "incremental": true,
+    "declaration": true,
 
     "outDir": "./dist",
     "baseUrl": "."

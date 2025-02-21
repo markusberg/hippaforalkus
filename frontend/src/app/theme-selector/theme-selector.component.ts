@@ -1,4 +1,9 @@
-import { Component, computed, inject } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from '@angular/core'
 import { ThemeKey, ThemeStore } from '../store/theme.store'
 import { NgClass } from '@angular/common'
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
@@ -40,6 +45,7 @@ export type BSTheme = {
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeSelectorComponent {
   readonly themeStore = inject(ThemeStore)
