@@ -18,3 +18,5 @@ export const GetByObjectIdSchema = z.object({
     example: '507f1f77bcf86cd799439011',
   }),
 })
+
+export type WithStringId<T> = Omit<T, 'id'> & { id: string }

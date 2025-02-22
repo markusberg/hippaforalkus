@@ -5,27 +5,38 @@ import type {
   ObjectId,
   WithId,
 } from 'mongodb'
-import type { Post } from '../interfaces/post.js'
 import { db } from './mongodb.service.js'
+
+import type { Post } from '../interfaces/post.js'
 
 export const COLLECTION = 'posts'
 
-export function getAll(): FindCursor<WithId<Post>> {
-  return db.collection<Post>(COLLECTION).find()
+export function getAll(
+  skip: number = 0,
+  limit: number = 10,
+): FindCursor<WithId<Post>> {
+  return db.collection<Post>(COLLECTION).find().skip(skip).limit(limit)
 }
 
-export function create(post: Post): Promise<InsertOneResult<Post>> {
-  return db.collection<Post>(COLLECTION).insertOne(post)
+export function create(
+  post: Omit<Post, 'date'>,
+): Promise<InsertOneResult<Post>> {
+  const payload: Post = { ...post, date: new Date() }
+  return db.collection<Post>(COLLECTION).insertOne(payload)
 }
 
 export function get(_id: ObjectId): Promise<Post | null> {
   return db.collection<Post>(COLLECTION).findOne({ _id })
 }
 
-export function update(_id: ObjectId, post: Post): Promise<Post | null> {
+export function update(
+  _id: ObjectId,
+  post: Omit<Post, 'date'>,
+): Promise<Post | null> {
+  const payload: Post = { ...post, date: new Date() }
   return db
     .collection<Post>(COLLECTION)
-    .findOneAndUpdate({ _id }, { $set: post }, { returnDocument: 'after' })
+    .findOneAndUpdate({ _id }, { $set: payload }, { returnDocument: 'after' })
 }
 
 export function remove(_id: ObjectId): Promise<DeleteResult> {
