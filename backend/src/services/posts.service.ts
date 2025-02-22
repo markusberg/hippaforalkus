@@ -7,7 +7,7 @@ import type {
 } from 'mongodb'
 import { db } from './mongodb.service.js'
 
-import type { Post } from '../interfaces/post.js'
+import type { Post, PostPayload } from '../interfaces/post.js'
 
 export const COLLECTION = 'posts'
 
@@ -18,11 +18,15 @@ export function getAll(
   return db.collection<Post>(COLLECTION).find().skip(skip).limit(limit)
 }
 
-export function create(
-  post: Omit<Post, 'date'>,
-): Promise<InsertOneResult<Post>> {
-  const payload: Post = { ...post, date: new Date() }
-  return db.collection<Post>(COLLECTION).insertOne(payload)
+export function create(payload: PostPayload): Promise<InsertOneResult<Post>> {
+  const post: Post = {
+    ...payload,
+    author: 'markus',
+    dateCreated: new Date(),
+    dateModified: null,
+  }
+
+  return db.collection<Post>(COLLECTION).insertOne(post)
 }
 
 export function get(_id: ObjectId): Promise<Post | null> {
@@ -31,12 +35,15 @@ export function get(_id: ObjectId): Promise<Post | null> {
 
 export function update(
   _id: ObjectId,
-  post: Omit<Post, 'date'>,
+  payload: PostPayload,
 ): Promise<Post | null> {
-  const payload: Post = { ...post, date: new Date() }
+  const post: Omit<Post, 'author' | 'dateCreated'> = {
+    ...payload,
+    dateModified: new Date(),
+  }
   return db
     .collection<Post>(COLLECTION)
-    .findOneAndUpdate({ _id }, { $set: payload }, { returnDocument: 'after' })
+    .findOneAndUpdate({ _id }, { $set: post }, { returnDocument: 'after' })
 }
 
 export function remove(_id: ObjectId): Promise<DeleteResult> {

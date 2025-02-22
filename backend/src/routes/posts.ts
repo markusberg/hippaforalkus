@@ -12,7 +12,7 @@ import {
 } from '../services/posts.service.js'
 import { GetByObjectIdSchema } from '../interfaces/mongodb.js'
 
-import { PostSchema } from '../interfaces/post.js'
+import { PostPayloadSchema, PostSchema } from '../interfaces/post.js'
 
 // ---
 
@@ -34,15 +34,14 @@ router.get('/{id}', async (c) => {
 
 router.post('', async (c) => {
   const body = await c.req.json()
-  const post = PostSchema.omit({ date: true }).parse(body)
-  await create(post)
+  const payload = PostPayloadSchema.parse(body)
+  await create(payload)
   return c.status(StatusCodes.NO_CONTENT)
 })
 
 router.put('/{id}', async (c) => {
   const id = new ObjectId(c.req.param('id'))
-  const body = await c.req.json()
-  const payload = PostSchema.omit({ date: true }).parse(body)
+  const payload = await c.req.json()
   await update(id, payload)
   return c.status(StatusCodes.NO_CONTENT)
 })

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
-import { Post } from '../../../backend/dist/interfaces/post'
+import { Post, PostPayload } from '../../../backend/dist/interfaces/post'
 import { WithStringId } from '../../../backend/dist/interfaces/mongodb'
 
 @Injectable({ providedIn: 'root' })
@@ -15,15 +15,15 @@ export class PostsService {
     return this.httpClient.get<WithStringId<Post>[]>(this.url)
   }
 
-  get(id: string): Observable<Post> {
+  get(id: string): Observable<WithStringId<Post>> {
     return this.httpClient.get<WithStringId<Post>>(`${this.url}/${id}`)
   }
 
-  create(post: Post): Observable<void> {
+  create(post: PostPayload): Observable<void> {
     return this.httpClient.post<void>(this.url, post)
   }
 
-  update(id: string, post: Post): Observable<void> {
+  update(id: string, post: PostPayload): Observable<void> {
     return this.httpClient.put<void>(`${this.url}/${id}`, post)
   }
 

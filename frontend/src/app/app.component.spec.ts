@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { provideExperimentalZonelessChangeDetection } from '@angular/core'
+import { ActivatedRoute, provideRouter } from '@angular/router'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideExperimentalZonelessChangeDetection()],
+      providers: [
+        provideExperimentalZonelessChangeDetection(),
+        provideRouter([]),
+      ],
     }).compileComponents()
   })
 

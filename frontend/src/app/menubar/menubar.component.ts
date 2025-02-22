@@ -1,10 +1,16 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
 import { NgbCollapse, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component'
+import { RouterModule } from '@angular/router'
 
 @Component({
   selector: 'app-menubar',
-  imports: [NgbCollapse, NgbDropdownModule, ThemeSelectorComponent],
+  imports: [
+    NgbCollapse,
+    NgbDropdownModule,
+    RouterModule,
+    ThemeSelectorComponent,
+  ],
   templateUrl: './menubar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

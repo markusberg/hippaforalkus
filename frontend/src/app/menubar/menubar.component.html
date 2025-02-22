@@ -20,7 +20,13 @@
       id="navbarSupportedContent"
       [ngbCollapse]="isCollapsed()"
     >
-      <ul class="navbar-nav me-auto"></ul>
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/create'" (click)="collapse()"
+            >Create entry</a
+          >
+        </li>
+      </ul>
       <ul class="navbar-nav">
         <app-theme-selector />
       </ul>
